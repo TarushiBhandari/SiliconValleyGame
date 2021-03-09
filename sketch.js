@@ -73,7 +73,7 @@ bg2Img= loadImage("jungle.jpg");
 
 function setup(){
 
-  createCanvas(displayWidth,660);
+  createCanvas(displayWidth,displayHeight);
 
   //creating running game background, sprites and groups
   // bg= createSprite(600,300,1200,800);
@@ -109,7 +109,10 @@ function draw(){
 
   background(menuBgImg);
 
-  
+  if(gameState==="citySupplies"){
+    form.hide();
+    
+  }
 
   //operations for running game
   // player.collide(edges);
@@ -156,7 +159,7 @@ function draw(){
     // spawnCars();
     // spawnFruits();
     // spawnBombs();
-  drawSprites();
+  
 
   if(gameState==="start"){
     textSize(90);
@@ -214,6 +217,7 @@ function draw(){
   // fill("black");
   // stroke(5);
   // text("COINS: "+coinScore,30,40);
+  drawSprites();
 }
 
 function spawnCoins(){
