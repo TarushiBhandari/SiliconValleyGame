@@ -4,8 +4,8 @@ class Building{
              houseImg1, houseImg2, houseImg3, mallImg, officeImg1, officeImg2,parkImg1,
             parkImg2, pharmacyImg, restaurantImg, schoolImg1, schoolImg2, stationaryImg,
             toyShopImg];
-        this.x= 80;
-        this.y= 200;
+        this.x= 100;
+        this.y= 100;
         this.closeImg= loadImage("close.png");
         this.closeButton= createSprite(1300,50,10,10);
         this.closeButton.addImage(this.closeImg);
@@ -18,11 +18,21 @@ class Building{
             
             var building= createSprite(this.x,this.y,20,20);
             //building.addImage(this.buildings[i]);
-            this.x+= 240;
+            this.x+= 280;
+            console.log(i);
             
-            // if(i=10){
-            //     this.y= 400;
-            // }
+            if(i===4){
+                this.y= 250;
+                this.x= 100;
+            }
+            if(i===9){
+                this.y= 400;
+                this.x= 100;
+            }
+            if(i===14){
+                this.y= 550;
+                this.x= 100;
+            }
             switch(i){
                 case 0: building.addImage(toyShopImg);
                 building.scale= 0.5;
@@ -73,16 +83,16 @@ class Building{
                 building.scale= 0.3;
                 break;
                 case 16: building.addImage(restaurantImg);
-                building.scale= 0.05;
+                building.scale= 0.3;
                 break;
                 case 17: building.addImage(schoolImg1);
-                building.scale= 0.05;
+                building.scale= 0.3;
                 break;
                 case 18: building.addImage(schoolImg2);
-                building.scale= 0.05;
+                building.scale= 0.3;
                 break;
                 case 19: building.addImage(stationaryImg);
-                building.scale= 0.05;
+                building.scale= 0.5;
                 break;
                 default: break;
 
