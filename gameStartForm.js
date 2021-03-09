@@ -32,6 +32,8 @@ class Form{
         if(mousePressedOver(this.citySetup)){
             console.log("clicked");
             gameState= "citySupplies";
+            building= new Building();
+            building.display();
         }
         
     }
