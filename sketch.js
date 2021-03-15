@@ -17,7 +17,8 @@ var toyShopImg;
 var game1Button, game2Button;
 var gameState= "start";
 var form, building;
-var closeButton
+var closeButton;
+var medical;
 
 function preload(){
 
@@ -69,6 +70,13 @@ orangeImg= loadImage("orange2.png");
 pineappleImg= loadImage("pineapple2.png");
 bg2Img= loadImage("jungle.jpg");
 
+//loading medical shop items
+cream= loadImage("medicalShop/antiseptic cream.png");
+bandage= loadImage("medicalShop/bandage.png");
+crepeBandage= loadImage("medicalShop/crepeBandage.png");
+syringe= loadImage("medicalShop/syringe.png");
+syrupMed= loadImage("medicalShop/syrupMed.png");
+tabletMed= loadImage("medicalShop/tabletMed.png");
 }
 
 function setup(){
@@ -110,8 +118,15 @@ function draw(){
   background(menuBgImg);
 
   if(gameState==="citySupplies"){
+    form.hide(); 
+  }
+
+  if(gameState==="medical"){
     form.hide();
-    
+  }
+
+  if(gameState==="start"){
+    form.display();
   }
 
   //operations for running game

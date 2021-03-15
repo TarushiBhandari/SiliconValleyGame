@@ -6,10 +6,6 @@ class Building{
             toyShopImg];
         this.x= 100;
         this.y= 100;
-        this.closeImg= loadImage("close.png");
-        this.closeButton= createSprite(1300,50,10,10);
-        this.closeButton.addImage(this.closeImg);
-        this.closeButton.scale= 0.1;
     }
 
     display(){

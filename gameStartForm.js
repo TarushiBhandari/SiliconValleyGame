@@ -35,6 +35,12 @@ class Form{
             building= new Building();
             building.display();
         }
+
+        if(mousePressedOver(this.medicalShop)){
+            gameState= "medical";
+            medical= new Medical();
+            medical.display();
+        }
         
     }
 
