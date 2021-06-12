@@ -18,7 +18,6 @@ var parkImg2, pharamacyImg, restaurantImg, schoolImg1, schoolImg2, stationaryImg
 var toyShopImg;
 var game1Button, game2Button;
 var gameState= "start";
-var gameState= "hardestGame";
 var form, building;
 var closeButton;
 var medical, fruitGSound;
@@ -128,34 +127,52 @@ function setup(){
   bg3.visible = false;
 
   wall3 = createSprite(67,145,3,50);
+  wall3.visible = false;
   wall4 = createSprite(67,235,3,50);
+  wall4.visible = false;
   wall5 = createSprite(313,145,3,50);
+  wall5.visible = false;
   wall6 = createSprite(313,235,3,50);
+  wall6.visible = false;
   wall7 = createSprite(41,170,50,3);
+  wall7.visible = false;
   wall8 = createSprite(41,210,50,3);
+  wall8.visible = false;
   wall9 = createSprite(337,210,50,3);
+  wall9.visible = false;
   wall10 = createSprite(337,170,50,3);
+  wall10.visible = false;
   wall11 = createSprite(18,190,3,40);
+  wall11.visible = false;
   wall12 = createSprite(361,190,3,40);
+  wall12.visible = false;
 
   square = createSprite(40,190,13,13);
   square.shapeColor = "green";
+  square.visible = false;
+
   obs1 = createSprite(100,130,10,10);
   obs1.shapeColor = "red";
-  obs1.velocityY = 8;
+  obs1.visible = false;
   
   obs2 = createSprite(215,130,10,10);
   obs2.shapeColor = "red";
+  obs2.visible = false;
 
   obs3 = createSprite(165,250,10,10);
   obs3.shapeColor = "red";
+  obs3.visible = false;
 
   obs4 = createSprite(270,250,10,10);
   obs4.shapeColor = "red";
-  wall1 = createSprite(190,120,250,3);
-  wall2 = createSprite(190,260,250,3);
+  obs4.visible = false;
 
-  
+  wall1 = createSprite(190,120,250,3);
+  wall1.visible = false;
+  wall2 = createSprite(190,260,250,3);
+  wall2.visible = false;
+
+  obs1.velocityY = 8
   obs2.velocityY= 8;
   obs3.velocityY = -8;
   obs4.velocityY = -8;
@@ -170,6 +187,18 @@ function setup(){
 function draw(){
 
   background(menuBgImg);
+  square.collide(wall11);
+  square.collide(wall12);
+
+  obs1.bounceOff(wall1);
+  obs1.bounceOff(wall2);
+  obs2.bounceOff(wall1);
+  obs2.bounceOff(wall2);
+  obs3.bounceOff(wall1);
+  obs3.bounceOff(wall2);
+  obs4.bounceOff(wall1);
+  obs4.bounceOff(wall2);
+
 
   if(gameState==="start"){
     form.display();
@@ -240,8 +269,25 @@ function fruitGame(){
 
 function hardestGame(){
 
-  clear();
-  bg3.visible= true;
+  bg3.visible = true;
+  wall3.visible = true;
+  wall4.visible = true;
+  wall5.visible = true;
+  wall6.visible = true;
+  wall7.visible = true;
+  wall8.visible = true;
+  wall9.visible = true;
+  wall10.visible = true;
+  wall11.visible = true;
+  wall12.visible = true;
+  square.visible = true;
+  obs1.visible = true;
+  obs2.visible = true;
+  obs3.visible = true;
+  obs4.visible = true;
+  wall1.visible = true;
+  wall2.visible = true;
+
 
   if(keyDown(RIGHT_ARROW)){
     square.x = square.x + 2;
@@ -259,17 +305,6 @@ function hardestGame(){
      square.y = 190;
      count = count + 1;
   }
-
-  square.collide(wall1);
-
-  obs1.bounceOff(wall1);
-  obs1.bounceOff(wall2);
-  obs2.bounceOff(wall1);
-  obs2.bounceOff(wall2);
-  obs3.bounceOff(wall1);
-  obs3.bounceOff(wall2);
-  obs4.bounceOff(wall1);
-  obs4.bounceOff(wall2);
   
   if(count===5){
     clear();
@@ -325,6 +360,8 @@ function runningGame(){
             runningCoinSound.play();
         }
       }
+      spawnCoins();
+      spawnBirds();
 
       if(carGroup.isTouching(player) || birdGroup.isTouching(player)){
         clear();
@@ -339,8 +376,7 @@ function runningGame(){
         gameState = "start";
       }
 
-      spawnCoins();
-      spawnBirds();
+     
 }
 
 //functions
