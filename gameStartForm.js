@@ -1,44 +1,47 @@
 class Form{
     constructor(){
 
-        this.citySetup= createSprite(120,400);
+        this.citySetup= createSprite(120,300);
         this.citySetup.addImage(shopImg);
         this.citySetup.scale= 0.2;
         this.citySetup.visible = false;
 
-        this.medicalShop= createSprite(370,400);
+        this.medicalShop= createSprite(370,300);
         this.medicalShop.addImage(shopImg);
         this.medicalShop.scale= 0.2;
         this.medicalShop.visible = false;
 
-        this.plantSetup= createSprite(620,400);
-        this.plantSetup.addImage(shopImg);
-        this.plantSetup.scale= 0.2;
-        this.plantSetup.visible = false;
-
-        this.game1Button= createButton('RUN AND EARN');
-        this.game2Button= createButton('COLLECT AND EARN');
+        this.game1Button= createButton('INFINITE RUNNER');
+        this.game2Button= createButton('FRUIT COLLECTOR');
+        this.game3Button= createButton('HARDEST GAME');
+        alert("Don't go back otherwise your money and food will be lost!");
     }
 
     display(){
+        
 
         this.displayHeadings();
         
         this.citySetup.visible = true;
         this.medicalShop.visible = true;
-        this.plantSetup.visible = true;
 
         this.game1Button.position(1100,400); 
-        this.game1Button.style('width', '170px');
-        this.game1Button.style('height', '40px');
+        this.game1Button.style('width', '180px');
+        this.game1Button.style('height', '50px');
         this.game1Button.style('background', 'lightpink');
         this.game1Button.show();
 
         this.game2Button.position(1100,500); 
-        this.game2Button.style('width', '170px');
-        this.game2Button.style('height', '40px');
+        this.game2Button.style('width', '180px');
+        this.game2Button.style('height', '50px');
         this.game2Button.style('background', 'lightpink');
         this.game2Button.show();
+
+        this.game3Button.position(1000,400); 
+        this.game3Button.style('width', '180px');
+        this.game3Button.style('height', '50px');
+        this.game3Button.style('background', 'lightpink');
+        this.game3Button.show();
 
         if(mousePressedOver(this.citySetup)){
             this.hide();
@@ -63,16 +66,21 @@ class Form{
         this.game2Button.mousePressed(()=>{
             this.hide();
             gameState = "fruitGame";
-        })
+        });
+
+        this.game3Button.mousePressed(()=>{
+            this.hide();
+            gameState = "hardestGame";
+        });
         
     }
 
     hide(){
         this.citySetup.visible = false;
         this.medicalShop.visible= false;
-        this.plantSetup.visible= false;
         this.game1Button.hide();
         this.game2Button.hide();
+        this.game3Button.hide();
 
     }
 
@@ -86,27 +94,22 @@ class Form{
         textSize(20);
         fill("black");
         stroke(8);
-        text("CITY SUPPLIES",50,500);
+        text("CITY SUPPLIES",50,400);
       
         textSize(20);
         fill("black");
         stroke(8);
-        text("MEDICAL SHOP", 300,500);
-      
-        textSize(20);
+        text("MEDICAL SHOP", 300,400);
+
+        textSize(40);
         fill("black");
         stroke(8);
-        text("PLANT SETUP SUPPLIES",530,500);
-      
-      
+        text("BUY YOUR SUPPLIES HERE!", 50,500);
+
         textSize(30);
-        fill("yellow");
-        stroke(5);
-        text("CITY BUILDINGS BUILT: "+buildings,40,200);
-      
-        textSize(30);
-        fill("yellow");
-        stroke(5);
-        text("CITY BUILDINGS LEFT: "+buildingsLeft, 450,200);
+        fill("magenta");
+        stroke(8);
+        text("Play These Games To", 900, 300);
+        text("Earn Money And Food", 900, 330);
     }
 }
