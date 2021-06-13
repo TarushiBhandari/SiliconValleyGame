@@ -20,45 +20,25 @@ var game1Button, game2Button;
 var gameState= "start";
 var form, building;
 var closeButton;
-var medical, fruitGSound;
+var medical, fruitGSound, plant;
 var obs1, obs2, obs3, obs4, square, c1,c2,c3;
 
 function preload(){
-    playerAnimation= loadAnimation("girl1.png", "girl2.png","girl3.png","girl4.png","girl5.png",
-    "girl6.png","girl7.png","girl8.png");
-
-    birdAnimation= loadAnimation("bird1.png","bird2.png","bird3.png","bird4.png","bird5.png",
-    "bird6.png","bird7.png","bird8.png","bird9.png","bird10.png","bird11.png","bird12.png",
-    "bird13.png","bird14.png")
 
     bgImg= loadImage("bg.jpg");
+
+    //loading running game items
+    playerAnimation= loadAnimation("animations/girl1.png", "animations/girl2.png","animations/girl3.png","animations/girl4.png","animations/girl5.png",
+    "animations/girl6.png","animations/girl7.png","animations/girl8.png");
+
+    birdAnimation= loadAnimation("animations/bird1.png","animations/bird2.png","animations/bird3.png","animations/bird4.png","animations/bird5.png",
+    "animations/bird6.png","animations/bird7.png","animations/bird8.png","animations/bird9.png","animations/bird10.png","animations/bird11.png","animations/bird12.png",
+    "animations/bird13.png","animations/bird14.png")
+
     coinImg= loadImage("coin.png");
     carImg= loadImage("car.png");
-
-    //loading image items
-    closeButton= loadImage("close.png");
-    shopImg= loadImage("shopSymbol.png");
-    menuBgImg= loadImage("menuBg.jpg");
-    bankImg= loadImage("citySetup/bank.png");
-    collegeImg1= loadImage("citySetup/college1.png");
-    collegeImg2= loadImage("citySetup/college2.png");
-    groceryImg= loadImage("citySetup/groceryStore.png");
-    hospitalImg1= loadImage("citySetup/hospital1.png");
-    hospitalImg2= loadImage("citySetup/hospital2.png");
-    houseImg1= loadImage("citySetup/house1.png");
-    houseImg2= loadImage("citySetup/house2.png");
-    houseImg3= loadImage("citySetup/house3.png");
-    mallImg= loadImage("citySetup/mall.png");
-    officeImg1= loadImage("citySetup/office.png");
-    officeImg2= loadImage("citySetup/office2.png");
-    parkImg1= loadImage("citySetup/park1.png");
-    parkImg2= loadImage("citySetup/park2.png");
-    pharmacyImg= loadImage("citySetup/pharmacy.png");
-    restaurantImg= loadImage("citySetup/restaurant.png");
-    schoolImg1= loadImage("citySetup/school1.png");
-    schoolImg2= loadImage("citySetup/school2.png");
-    stationaryImg= loadImage("citySetup/stationary.png");
-    toyShopImg= loadImage("citySetup/toyShop.png");
+    runningCoinSound= loadSound("Sounds/game1CoinSound.wav");
+    runningGOver= loadSound('Sounds/game1Over.wav');
 
     //loading fruit game images
     coinImg= loadImage("coin.png");
@@ -70,6 +50,40 @@ function preload(){
     orangeImg= loadImage("orange2.png");
     pineappleImg= loadImage("pineapple2.png");
     bg2Img= loadImage("jungle.jpg");
+    fruitGOver= loadSound("Sounds/game2Over.wav");
+    fruitCollectingSound= loadSound("Sounds/game2FruitSound.wav");
+
+    //loding hardest game items
+    game3bg= loadImage("game3bg.jpg");
+
+    //loading shooting game items
+    bowImg= loadImage("bow0.png");
+    arrowImg= loadImage("arrow0.png");
+    bg4Img= loadImage("background0.png");
+
+     //loading building sector items
+     shopImg= loadImage("shopSymbol.png");
+     menuBgImg= loadImage("menuBg.jpg");
+     bankImg= loadImage("citySetup/bank.png");
+     collegeImg1= loadImage("citySetup/college1.png");
+     collegeImg2= loadImage("citySetup/college2.png");
+     groceryImg= loadImage("citySetup/groceryStore.png");
+     hospitalImg1= loadImage("citySetup/hospital1.png");
+     hospitalImg2= loadImage("citySetup/hospital2.png");
+     houseImg1= loadImage("citySetup/house1.png");
+     houseImg2= loadImage("citySetup/house2.png");
+     houseImg3= loadImage("citySetup/house3.png");
+     mallImg= loadImage("citySetup/mall.png");
+     officeImg1= loadImage("citySetup/office.png");
+     officeImg2= loadImage("citySetup/office2.png");
+     parkImg1= loadImage("citySetup/park1.png");
+     parkImg2= loadImage("citySetup/park2.png");
+     pharmacyImg= loadImage("citySetup/pharmacy.png");
+     restaurantImg= loadImage("citySetup/restaurant.png");
+     schoolImg1= loadImage("citySetup/school1.png");
+     schoolImg2= loadImage("citySetup/school2.png");
+     stationaryImg= loadImage("citySetup/stationary.png");
+     toyShopImg= loadImage("citySetup/toyShop.png");
 
     //loading medical shop items
     cream= loadImage("medicalShop/antiseptic cream.png");
@@ -79,14 +93,10 @@ function preload(){
     syrupMed= loadImage("medicalShop/syrupMed.png");
     tabletMed= loadImage("medicalShop/tabletMed.png");
 
-    game3bg= loadImage("game3bg.jpg");
-
-    fruitGSound= loadSound("music.mp3");
-    fruitGOver= loadSound("Sounds/game2Over.wav");
-    fruitCollectingSound= loadSound("Sounds/game2FruitSound.wav");
-
-    runningCoinSound= loadSound("Sounds/game1CoinSound.wav");
-    runningGOver= loadSound('Sounds/game1Over.wav');
+    // loading plants setup sector items
+    solarPlant= loadImage("plantSetup/solarPlant.png");
+    electricPlant= loadImage("plantSetup/electricPlant.png");
+    waterPlant= loadImage("plantSetup/waterPlant.png");
 }
 
 function setup(){
@@ -108,8 +118,6 @@ function setup(){
 
   coinGroup= new Group();
   birdGroup= new Group();
-  carGroup= new Group();
-  coins3= new Group();
 
   //creating fruit game background, sprites and groups
   bg2= createSprite(600,300,1200, 800);
@@ -122,6 +130,10 @@ function setup(){
   basket.scale= 0.80;
   basket.visible = false;
 
+  fruitGroup= new Group();
+  bombGroup= new Group();
+
+  //creating hardest game background, sprites and groups
   bg3= createSprite(600,300,1200, 800);
   bg3.addImage(game3bg);
   bg3.scale= 6;
@@ -193,8 +205,24 @@ function setup(){
   c2.velocityY = -8;
   c3.velocityY = -8;
 
-  fruitGroup= new Group();
-  bombGroup= new Group();
+  coins3= new Group();
+
+  //creating shooting game background, sprites and groups
+  bg4= createSprite(600,300,1200, 800);
+  bg4.addImage(bg4Img);
+  bg4.scale= 5;
+  bg4.visible = false;
+
+  invs= createSprite(1360,600,5,1200);
+  invs.visible= false;
+
+  bow = createSprite(1000,405,20,20);
+  bow.addImage(bowImg);
+  bow.visible = false;
+
+  appleGrp= new Group();
+  arrowGrp= new Group();
+  bGrp= new Group();
 
   form= new Form();
   edges= createEdgeSprites();
@@ -204,6 +232,7 @@ function draw(){
 
   background(menuBgImg);
 
+  //fruit game items bounceOff code
   obs1.bounceOff(wall1);
   obs1.bounceOff(wall2);
   obs2.bounceOff(wall1);
@@ -220,6 +249,7 @@ function draw(){
   c3.bounceOff(wall2);
 
 
+  //state conditions
   if(gameState==="start"){
     form.display();
   }
@@ -238,24 +268,87 @@ function draw(){
     clear();
     hardestGame();
   }
+
+  if(gameState === "shootingGame"){
+    clear();
+    shootingGame();
+  }
   
   drawSprites();
 
+  //text for money and food
   stroke("Yellow");
   fill("Yellow");
   textSize(30);
   text("Money : "+score,1100,40);
-
   text("Food  : "+food, 100,40);
 }
 
-//fruit game code
+//SHOOTING GAME
+function shootingGame(){
+  
+  bg4.visible= true;
+  bow.visible= true;
+  bow.collide(edges);
+
+  if (keyDown("space")) {
+    createArrow();
+  }
+  if(keyIsDown(UP_ARROW)){
+    bow.y= bow.y-10;
+  }
+  if(keyIsDown(DOWN_ARROW)){
+    bow.y= bow.y+10;
+  }
+  if(keyIsDown(RIGHT_ARROW)){
+    bow.x= bow.x+10;
+  }
+  if(keyIsDown(LEFT_ARROW)){
+    bow.x= bow.y-10;
+  }
+
+  for(var i=0; i<appleGrp.length; i++){
+    if(appleGrp.get(i).isTouching(arrowGrp)){
+      appleGrp.get(i).destroy();
+      food = food + 1;
+      fruitCollectingSound.play();
+    }
+  }
+
+  if(appleGrp.isTouching(bow) || bow.isTouching(bGrp)){
+    clear();
+    appleGrp.destroyEach();
+    arrowGrp.destroyEach();
+    bGrp.destroyEach();
+    bow.visible = false;
+    bg4.visible= false;
+    fruitGOver.play();
+    alert("Sorry, You Lost. Better Luck Next Time");
+    gameState = "start";
+  }
+
+  if(appleGrp.isTouching(invs)){
+    clear();
+    appleGrp.destroyEach();
+    arrowGrp.destroyEach();
+    bGrp.destroyEach();
+    bow.visible = false;
+    bg4.visible= false;
+    fruitGOver.play();
+    alert("Oh Looks Like You Missed An Apple. Its Ok Try Again.");
+    gameState = "start";
+  }
+  bombs();
+  apples();
+}
+
+
+//FRUIT GAME
 function fruitGame(){
 
     bg2.visible = true;
     basket.visible = true;
     basket.collide(edges);
-    //fruitGSound.play();
 
     if(keyIsDown(LEFT_ARROW)){
       basket.x= basket.x-20;
@@ -279,7 +372,7 @@ function fruitGame(){
       basket.visible = false;
       bg2.visible = false;
       fruitGOver.play();
-      alert("Sorry, you lost. Better luck next time");
+      alert("Sorry, You Lost. Better Luck Next Time");
       gameState = "start";
     }
    
@@ -287,6 +380,8 @@ function fruitGame(){
     spawnBombs();
 }
 
+
+//HARDEST GAME
 function hardestGame(){
 
   bg3.visible = true;
@@ -374,20 +469,19 @@ function hardestGame(){
     c3.visible= false;
     coins3.destroyEach();
     runningGOver.play();
-    alert("Oops! you exceeded the death limit. You Lost!");
+    alert("Oops! You Exceeded The Death Limit. You Lost!");
     gameState= "start";
   }
   }
   
 
-
-//running game code
+//RUNNING GAME
 function runningGame(){
 
       runningGameBg.visible = true;
       player.visible = true;
       player.collide(edges);
-
+      
       if(runningGameBg.x<0){
         runningGameBg.x= runningGameBg.width/2
       }
@@ -409,16 +503,15 @@ function runningGame(){
       spawnCoins();
       spawnBirds();
 
-      if(carGroup.isTouching(player) || birdGroup.isTouching(player)){
+      if(birdGroup.isTouching(player)){
         clear();
         money = score;
         coinGroup.destroyEach();
         birdGroup.destroyEach();
-        carGroup.destroyEach();
         player.visible = false;
         runningGameBg.visible = false;
         runningGOver.play();
-        alert("Sorry, you lost. Better luck next time");
+        alert("Sorry, You Lost. Better Luck Next Time");
         gameState = "start";
       }
 
@@ -432,17 +525,16 @@ function spawnCoins(){
       
       coin= createSprite(1500,10);
       coin.y= Math.round(random(500,5));
-      coin.velocityX= -14;
+      coin.velocityX= -10;
       coin.addImage(coinImg);
       coin.scale= 0.09;
       coin.lifetime= 500;
-      coin.velocityX = -(3 + score/200);
       coinGroup.add(coin);
      }
   }
   
   function spawnBirds(){
-    if(frameCount%30===0){
+    if(frameCount%20===0){
       bird= createSprite(1500,10);
       bird.y= Math.round(random(700,10));
       bird.velocityX= -7;
@@ -497,5 +589,39 @@ function coins(){
     coin3.y= Math.round(random(400,200));
     coin3.lifetime= 200;
     coins3.add(coin3);
+  }
+}
+
+function apples(){
+  if(frameCount%30===0){
+      apple= createSprite(100,450);
+      apple.y= Math.round(random(500,5));
+      apple.velocityX= 4;
+      apple.addImage(appleImg);
+      apple.lifetime= 500;
+      appleGrp.add(apple);
+  }
+}
+
+function createArrow() {
+  var arrow= createSprite(1000, 405, 60, 10);
+  arrow.addImage(arrowImg);
+  arrow.y=bow.y;
+  arrow.x= bow.x;
+  arrow.velocityX = -10;
+  arrow.lifetime = 100;
+  arrow.scale = 0.3;
+  arrowGrp.add(arrow);   
+}
+
+function bombs(){
+  if(frameCount%50===0){
+    b= createSprite(10,10);
+    b.addImage(bombImg);
+    b.scale= 0.120;
+    b.x= Math.round(random(70,1300));
+    b.velocityY=3;
+    b.lifetime= 400;
+    bGrp.add(b);
   }
 }
