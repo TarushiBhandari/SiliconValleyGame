@@ -37,7 +37,7 @@ class Form{
         this.game2Button.style('background', 'lightpink');
         this.game2Button.show();
 
-        this.game3Button.position(1000,400); 
+        this.game3Button.position(850,450); 
         this.game3Button.style('width', '180px');
         this.game3Button.style('height', '50px');
         this.game3Button.style('background', 'lightpink');

@@ -50,6 +50,11 @@ class Medical{
         this.syrupButton.style('height', '40px');
         this.syrupButton.style('background', 'cyan');
         this.syrupButton.show();
+
+        this.cancelButton.mousePressed(()=>{
+            this.hideElements();
+            gameState = "start";
+        });
         
         for(var i=0; i<6; i++){
             
@@ -82,5 +87,13 @@ class Medical{
             }
         }
         
+    }
+    hideElements(){
+        this.creamButton.hide();
+        this.bandageButton.hide();
+        this.syrupButton.hide();
+        this.crepeButton.hide();
+        this.syringeButton.hide();
+        this.cancelButton.hide();
     }
 }    

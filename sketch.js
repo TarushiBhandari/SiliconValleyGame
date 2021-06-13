@@ -21,7 +21,7 @@ var gameState= "start";
 var form, building;
 var closeButton;
 var medical, fruitGSound;
-var obs1, obs2, obs3, obs4, square;
+var obs1, obs2, obs3, obs4, square, c1,c2,c3;
 
 function preload(){
     playerAnimation= loadAnimation("girl1.png", "girl2.png","girl3.png","girl4.png","girl5.png",
@@ -109,6 +109,7 @@ function setup(){
   coinGroup= new Group();
   birdGroup= new Group();
   carGroup= new Group();
+  coins3= new Group();
 
   //creating fruit game background, sprites and groups
   bg2= createSprite(600,300,1200, 800);
@@ -126,56 +127,71 @@ function setup(){
   bg3.scale= 6;
   bg3.visible = false;
 
-  wall3 = createSprite(67,145,3,50);
+  wall3 = createSprite(372,192,5,90);
   wall3.visible = false;
-  wall4 = createSprite(67,235,3,50);
+  wall3.shapeColor= "white";
+  wall4 = createSprite(378,408,5,90);
   wall4.visible = false;
-  wall5 = createSprite(313,145,3,50);
+  wall4.shapeColor= "white";
+  wall5 = createSprite(1025,300,5,300);
   wall5.visible = false;
-  wall6 = createSprite(313,235,3,50);
-  wall6.visible = false;
-  wall7 = createSprite(41,170,50,3);
+  wall5.shapeColor= "white";
+  wall7 = createSprite(330,240,90,5);
   wall7.visible = false;
-  wall8 = createSprite(41,210,50,3);
+  wall7.shapeColor= "white";
+  wall8 = createSprite(335,360,90,5);
   wall8.visible = false;
-  wall9 = createSprite(337,210,50,3);
+  wall8.shapeColor= "white";
+  wall9 = createSprite(285,300,5,120);
   wall9.visible = false;
-  wall10 = createSprite(337,170,50,3);
-  wall10.visible = false;
-  wall11 = createSprite(18,190,3,40);
-  wall11.visible = false;
-  wall12 = createSprite(361,190,3,40);
-  wall12.visible = false;
+  wall9.shapeColor= "white";
 
-  square = createSprite(40,190,13,13);
-  square.shapeColor = "green";
+  c1 = createSprite(500,300,5,120);
+  c1.visible = false;
+  c1.shapeColor= "white";
+
+  c2 = createSprite(700,300,5,120);
+  c2.visible = false;
+  c2.shapeColor= "white";
+
+  c3 = createSprite(900,400,5,120);
+  c3.visible = false;
+  c3.shapeColor= "white";
+
+  square = createSprite(350,300,13,13);
+  square.shapeColor = "yellow";
   square.visible = false;
 
-  obs1 = createSprite(100,130,10,10);
+  obs1 = createSprite(400,198,20,20);
   obs1.shapeColor = "red";
   obs1.visible = false;
   
-  obs2 = createSprite(215,130,10,10);
+  obs2 = createSprite(600,400,20,20);
   obs2.shapeColor = "red";
   obs2.visible = false;
 
-  obs3 = createSprite(165,250,10,10);
+  obs3 = createSprite(800,198,20,20);
   obs3.shapeColor = "red";
   obs3.visible = false;
 
-  obs4 = createSprite(270,250,10,10);
+  obs4 = createSprite(1000,405,20,20);
   obs4.shapeColor = "red";
   obs4.visible = false;
 
-  wall1 = createSprite(190,120,250,3);
+  wall1 = createSprite(700,150,650,5);
   wall1.visible = false;
-  wall2 = createSprite(190,260,250,3);
+  wall1.shapeColor= "white";
+  wall2 = createSprite(700,450,650,5);
   wall2.visible = false;
+  wall2.shapeColor= "white";
 
-  obs1.velocityY = 8
-  obs2.velocityY= 8;
-  obs3.velocityY = -8;
-  obs4.velocityY = -8;
+  obs1.velocityY = 9;
+  obs2.velocityY= 9;
+  obs3.velocityY = -9;
+  obs4.velocityY = -9;
+  c1.velocityY= 8;
+  c2.velocityY = -8;
+  c3.velocityY = -8;
 
   fruitGroup= new Group();
   bombGroup= new Group();
@@ -187,8 +203,6 @@ function setup(){
 function draw(){
 
   background(menuBgImg);
-  square.collide(wall11);
-  square.collide(wall12);
 
   obs1.bounceOff(wall1);
   obs1.bounceOff(wall2);
@@ -198,6 +212,12 @@ function draw(){
   obs3.bounceOff(wall2);
   obs4.bounceOff(wall1);
   obs4.bounceOff(wall2);
+  c1.bounceOff(wall1);
+  c1.bounceOff(wall2);
+  c2.bounceOff(wall1);
+  c2.bounceOff(wall2);
+  c3.bounceOff(wall1);
+  c3.bounceOff(wall2);
 
 
   if(gameState==="start"){
@@ -273,39 +293,65 @@ function hardestGame(){
   wall3.visible = true;
   wall4.visible = true;
   wall5.visible = true;
-  wall6.visible = true;
   wall7.visible = true;
   wall8.visible = true;
   wall9.visible = true;
-  wall10.visible = true;
-  wall11.visible = true;
-  wall12.visible = true;
-  square.visible = true;
   obs1.visible = true;
   obs2.visible = true;
   obs3.visible = true;
   obs4.visible = true;
   wall1.visible = true;
   wall2.visible = true;
+  square.visible= true;
+  c1.visible= true;
+  c2.visible= true;
+  c3.visible= true;
 
-
+  square.collide(wall1);
+  square.collide(wall2);
+  square.collide(wall3);
+  square.collide(wall4);
+  square.collide(wall5);
+  square.collide(wall7);
+  square.collide(wall8);
+  square.collide(wall9);
+  
   if(keyDown(RIGHT_ARROW)){
-    square.x = square.x + 2;
+    square.x = square.x + 4;
   }
   if(keyDown(LEFT_ARROW)){
-    square.x = square.x - 3;
+    square.x = square.x - 4;
+  }
+  if(keyDown(DOWN_ARROW)){
+    square.y = square.y + 4;
+  }
+  if(keyDown(UP_ARROW)){
+    square.y = square.y - 4;
+  }
+
+  for(var i=0; i<coins3.length; i++){
+    if(coins3.get(i).isTouching(square)){
+      coins3.get(i).destroy();
+      score = score + 10;
+      runningCoinSound.play();
+    }
   }
 
   if(square.isTouching(obs1)||
       square.isTouching(obs2)||
       square.isTouching(obs3)||
-      square.isTouching(obs4))
+      square.isTouching(obs4)||
+      square.isTouching(c1)||
+      square.isTouching(c2)||
+      square.isTouching(c3))
   {
-     square.x = 40;
-     square.y = 190;
+     square.x = 300;
+     square.y = 300;
      count = count + 1;
   }
-  
+
+  coins();
+
   if(count===5){
     clear();
     count= 0;
@@ -320,15 +366,15 @@ function hardestGame(){
     wall3.visible = false;
     wall4.visible = false;
     wall5.visible = false;
-    wall6.visible = false;
     wall7.visible = false;
     wall8.visible = false;
-    wall9.visible = false;
-    wall10.visible = false;
-    wall11.visible = false;
-    wall12.visible = false;
-    text.visible= false;
-    alert("Oops! you exceeded the death limit. Play to pass again");
+    wall9.visible= false;
+    c1.visible= false;
+    c2.visible= false;
+    c3.visible= false;
+    coins3.destroyEach();
+    runningGOver.play();
+    alert("Oops! you exceeded the death limit. You Lost!");
     gameState= "start";
   }
   }
@@ -411,7 +457,7 @@ function spawnFruits(){
   if(frameCount%10===0){
     fruit= createSprite(10,10);
     fruit.x= Math.round(random(70,1300));
-    fruit.velocityY= (5 + score/10);
+    fruit.velocityY= 9
     var rand= Math.round(random(1,5));
     switch(rand){
       case 1: fruit.addImage(appleImg);
@@ -436,8 +482,20 @@ function spawnBombs(){
     bomb.addImage(bombImg);
     bomb.scale= 0.120;
     bomb.x= Math.round(random(70,1300));
-    bomb.velocityY= (4+score/40);
+    bomb.velocityY=10;
     bomb.lifetime= 400;
     bombGroup.add(bomb);
+  }
+}
+
+function coins(){
+  if(frameCount%60===0){
+    coin3= createSprite(300,400);
+    coin3.addImage(coinImg);
+    coin3.scale= 0.09;
+    coin3.x= Math.round(random(1020,400));
+    coin3.y= Math.round(random(400,200));
+    coin3.lifetime= 200;
+    coins3.add(coin3);
   }
 }
